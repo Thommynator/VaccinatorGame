@@ -28,6 +28,7 @@ GraphicsSettings:
   m_LensFlare:
     m_Mode: 1
     m_Shader: {fileID: 102, guid: 0000000000000000f000000000000000, type: 0}
+  m_VideoShadersIncludeMode: 2
   m_AlwaysIncludedShaders:
   - {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 10770, guid: 0000000000000000f000000000000000, type: 0}
@@ -37,7 +38,7 @@ GraphicsSettings:
   m_PreloadedShaders: []
   m_SpritesDefaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000,
     type: 0}
-  m_CustomRenderPipeline: {fileID: 11400000, guid: f25d49e2a5a26c043ba8c9aa8b2721bc,
+  m_CustomRenderPipeline: {fileID: 11400000, guid: 3b4c9c7249f33d74d845bca62b11adfa,
     type: 2}
   m_TransparencySortMode: 0
   m_TransparencySortAxis: {x: 0, y: 0, z: 1}
@@ -59,5 +60,5 @@ GraphicsSettings:
   m_AlbedoSwatchInfos: []
   m_LightsUseLinearIntensity: 0
   m_LightsUseColorTemperature: 0
+  m_DefaultRenderingLayerMask: 1
   m_LogWhenShaderIsCompiled: 0
-  m_AllowEnlightenSupportForUpgradedProject: 1
