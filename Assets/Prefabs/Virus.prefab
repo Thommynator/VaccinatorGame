@@ -178,9 +178,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05043d4505f95644b3e114cfd62d881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 0
-  damage: 0
-  attackCooldown: 0
+  hp: 10
+  damage: 2
+  attackCooldown: 1
   lastAttackTime: 0
   explosionSound: {fileID: 8300000, guid: 8b8ef523ce5a3fc408732b5f2f1e215d, type: 3}
   explosionEffectPrefab: {fileID: 569126039031927083, guid: 59bfb16f9b7c26841af59d1c929ce24a,

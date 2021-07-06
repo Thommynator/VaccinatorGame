@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Cell : MonoBehaviour
 {
@@ -8,9 +8,10 @@ public class Cell : MonoBehaviour
     public int numberOfAttackers;
     public CellStatus cellStatus;
     public float hp;
+    public float hpRegenarationPerSecond;
     public GameObject enemySpawnerPrefab;
-
     public Sprite[] cellStatusSprites;
+    public TextMeshProUGUI hpText;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,7 @@ public class Cell : MonoBehaviour
         GameEvents.current.onAttackerDies += (GameObject attacker) => { if (this != null) RemoveAttacker(attacker, this.gameObject); };
         numberOfAttackers = 0;
         cellStatus = CellStatus.HEALTHY;
+        hpText.text = hp.ToString();
     }
 
     // Update is called once per frame
@@ -68,6 +70,10 @@ public class Cell : MonoBehaviour
         enemySpawner.transform.SetParent(this.transform);
     }
 
+    // private IEnumerator RecoverHealth(float waitTime, float health){
+    //     wh
+    // }
+
     private void AddAttacker(GameObject attacker, GameObject cell)
     {
         if (cell == this.gameObject)
@@ -96,6 +102,7 @@ public class Cell : MonoBehaviour
     public void TakeDamage(float damage)
     {
         hp -= damage;
+        hpText.text = hp.ToString();
     }
 
     private int GetNumberOfAttackers()

@@ -6,9 +6,9 @@ public class Attacker : MonoBehaviour
     public float hp;
     public float damage;
     public float attackCooldown;
-    public float lastAttackTime;
     public AudioClip explosionSound;
     public GameObject explosionEffectPrefab;
+    private float lastAttackTime;
 
 
     // Start is called before the first frame update
@@ -16,10 +16,6 @@ public class Attacker : MonoBehaviour
     {
         GameEvents.current.onAttackerAttachsToCell += StopMoving;
         GameEvents.current.onAttackerDetachesFromCell += StartMoving;
-
-        hp = 10;
-        damage = 10;
-        attackCooldown = 1;
     }
 
     // Update is called once per frame
