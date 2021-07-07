@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class Cell : MonoBehaviour
 {
     public HashSet<GameObject> attackedBy = new HashSet<GameObject>();
     public int numberOfAttackers;
     public CellStatus cellStatus;
-    public float hp;
     public float hpRegenarationPerSecond;
     public GameObject enemySpawnerPrefab;
     public Sprite[] cellStatusSprites;
@@ -21,7 +21,8 @@ public class Cell : MonoBehaviour
         GameEvents.current.onAttackerDies += (GameObject attacker) => { if (this != null) RemoveAttacker(attacker, this.gameObject); };
         numberOfAttackers = 0;
         cellStatus = CellStatus.HEALTHY;
-        hpText.text = hp.ToString();
+
+        StartCoroutine(RecoverHealth(1));
     }
 
     // Update is called once per frame
@@ -31,12 +32,13 @@ public class Cell : MonoBehaviour
         {
             attacker.GetComponent<Attacker>().AttackCell(this.gameObject);
         }
-
         SetCellStatus();
+        hpText.text = GetComponent<Hp>().GetHp().ToString();
     }
 
     private void SetCellStatus()
     {
+        float hp = GetComponent<Hp>().GetHp();
         if (GetNumberOfAttackers() == 0 && hp > 0)
         {
             cellStatus = CellStatus.HEALTHY;
@@ -70,39 +72,45 @@ public class Cell : MonoBehaviour
         enemySpawner.transform.SetParent(this.transform);
     }
 
-    // private IEnumerator RecoverHealth(float waitTime, float health){
-    //     wh
-    // }
+    private IEnumerator RecoverHealth(float waitTime)
+    {
+        while (true)
+        {
+            if (cellStatus == CellStatus.HEALTHY)
+            {
+                GetComponent<Hp>().IncreaseHp(hpRegenarationPerSecond);
+            }
+            yield return new WaitForSeconds(waitTime);
+        }
+    }
 
     private void AddAttacker(GameObject attacker, GameObject cell)
     {
-        if (cell == this.gameObject)
+        if (cell != this.gameObject)
         {
-            attackedBy.Add(attacker);
-            numberOfAttackers = GetNumberOfAttackers();
-
-            FixedJoint2D joint = attacker.gameObject.AddComponent<FixedJoint2D>();
-            joint.connectedBody = GetComponent<Rigidbody2D>();
-            joint.autoConfigureConnectedAnchor = false;
+            return;
         }
+
+        attackedBy.Add(attacker);
+        numberOfAttackers = GetNumberOfAttackers();
+
+        FixedJoint2D joint = attacker.gameObject.AddComponent<FixedJoint2D>();
+        joint.connectedBody = GetComponent<Rigidbody2D>();
+        joint.autoConfigureConnectedAnchor = false;
+
     }
 
     private void RemoveAttacker(GameObject attacker, GameObject cell)
     {
-        if (cell == this.gameObject)
+        if (cell != this.gameObject)
         {
-            if (attackedBy.Remove(attacker))
-            {
-                numberOfAttackers = GetNumberOfAttackers();
-                Destroy(attacker.gameObject.GetComponent<FixedJoint2D>());
-            }
+            return;
         }
-    }
-
-    public void TakeDamage(float damage)
-    {
-        hp -= damage;
-        hpText.text = hp.ToString();
+        if (attackedBy.Remove(attacker))
+        {
+            numberOfAttackers = GetNumberOfAttackers();
+            Destroy(attacker.gameObject.GetComponent<FixedJoint2D>());
+        }
     }
 
     private int GetNumberOfAttackers()
@@ -112,7 +120,8 @@ public class Cell : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if ((cellStatus == CellStatus.HEALTHY || cellStatus == CellStatus.ATTACKED) && collision.gameObject.tag == "Virus")
+        if ((cellStatus == CellStatus.HEALTHY || cellStatus == CellStatus.ATTACKED)
+            && collision.gameObject.layer.Equals(LayerMask.NameToLayer("Attacker")))
         {
             GameEvents.current.AttackerAttachsToCell(collision.gameObject, this.gameObject);
         }

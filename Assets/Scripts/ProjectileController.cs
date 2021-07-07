@@ -25,7 +25,7 @@ public class ProjectileController : MonoBehaviour
         if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Attacker")))
         {
             Destroy(this.gameObject);
-            collision.gameObject.GetComponent<Attacker>().TakeDamage(damage);
+            collision.gameObject.GetComponent<Hp>().TakeDamage(damage);
         }
         if (!collision.gameObject.layer.Equals(LayerMask.NameToLayer("NonInteractable")))
         {

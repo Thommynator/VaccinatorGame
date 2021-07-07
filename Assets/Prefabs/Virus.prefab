@@ -42,10 +42,12 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -90,10 +92,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6190114309943042883}
-  - component: {fileID: 6190114309943042893}
   - component: {fileID: 6190114309943042892}
   - component: {fileID: 6190114309943042880}
+  - component: {fileID: 6190114309943042893}
   - component: {fileID: 3638300179106989482}
+  - component: {fileID: 7223297694552387442}
   m_Layer: 8
   m_Name: Virus
   m_TagString: Virus
@@ -116,19 +119,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6190114309943042893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6190114309943042895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f468c930aede6f74d8610306ca218765, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxDistance: 0.5
 --- !u!50 &6190114309943042892
 Rigidbody2D:
   serializedVersion: 4
@@ -166,6 +156,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
+--- !u!114 &6190114309943042893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6190114309943042895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f468c930aede6f74d8610306ca218765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistance: 0.5
 --- !u!114 &3638300179106989482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,10 +181,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05043d4505f95644b3e114cfd62d881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 10
   damage: 2
   attackCooldown: 1
-  lastAttackTime: 0
   explosionSound: {fileID: 8300000, guid: 8b8ef523ce5a3fc408732b5f2f1e215d, type: 3}
   explosionEffectPrefab: {fileID: 569126039031927083, guid: 59bfb16f9b7c26841af59d1c929ce24a,
     type: 3}
+--- !u!114 &7223297694552387442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6190114309943042895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4943eb85b36cdef43b0951d16749846c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 10

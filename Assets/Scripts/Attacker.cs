@@ -2,8 +2,6 @@
 
 public class Attacker : MonoBehaviour
 {
-
-    public float hp;
     public float damage;
     public float attackCooldown;
     public AudioClip explosionSound;
@@ -16,6 +14,8 @@ public class Attacker : MonoBehaviour
     {
         GameEvents.current.onAttackerAttachsToCell += StopMoving;
         GameEvents.current.onAttackerDetachesFromCell += StartMoving;
+
+        GetComponent<Hp>().dyingMethod = Die;
     }
 
     // Update is called once per frame
@@ -32,21 +32,17 @@ public class Attacker : MonoBehaviour
         LookAt(cell);
         if (Time.realtimeSinceStartup - lastAttackTime > attackCooldown)
         {
-            cell.GetComponent<Cell>().TakeDamage(damage);
+            cell.GetComponent<Hp>().TakeDamage(damage);
             lastAttackTime = Time.realtimeSinceStartup;
         }
     }
 
-    public void TakeDamage(float damage)
+    public void Die()
     {
-        hp -= damage;
-        if (hp <= 0)
-        {
-            GameObject explosionFx = GameObject.Instantiate<GameObject>(explosionEffectPrefab, transform.position, Quaternion.identity);
-            Destroy(explosionFx, 3);
-            AudioSource.PlayClipAtPoint(explosionSound, transform.position);
-            Destroy(this.gameObject);
-        }
+        GameObject explosionFx = GameObject.Instantiate<GameObject>(explosionEffectPrefab, transform.position, Quaternion.identity);
+        Destroy(explosionFx, 3);
+        AudioSource.PlayClipAtPoint(explosionSound, transform.position);
+        Destroy(this.gameObject);
     }
 
     private void StopMoving(GameObject attacker, GameObject cell)
