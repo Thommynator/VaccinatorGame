@@ -38,8 +38,8 @@ public class PlayerControllerKeyboard : MonoBehaviour
 
     private void Rotate()
     {
-        // body.SetRotation(body.rotation + Mathf.Clamp(-Input.GetAxis("Horizontal") * maxRotation, -maxRotation, maxRotation));
-        body.AddTorque(Mathf.Clamp(-Input.GetAxis("Horizontal") * maxRotation, -maxRotation, maxRotation));
+        body.SetRotation(body.rotation + Mathf.Clamp(-Input.GetAxis("Horizontal") * maxRotation, -maxRotation, maxRotation));
+        // body.AddTorque(Mathf.Clamp(-Input.GetAxis("Horizontal") * maxRotation, -maxRotation, maxRotation));
     }
 
 
