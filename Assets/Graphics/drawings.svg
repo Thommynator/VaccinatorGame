@@ -58,18 +58,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.0328477"
-     inkscape:cx="478.12333"
-     inkscape:cy="364.63572"
+     inkscape:zoom="0.37211913"
+     inkscape:cx="469.0591"
+     inkscape:cy="373.66422"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:window-width="1920"
-     inkscape:window-height="1014"
-     inkscape:window-x="-8"
+     inkscape:window-width="1536"
+     inkscape:window-height="811"
+     inkscape:window-x="1912"
      inkscape:window-y="-8"
      inkscape:window-maximized="1">
     <sodipodi:guide
@@ -658,5 +658,12 @@
          inkscape:transform-center-y="-0.19103994"
          inkscape:transform-center-x="-0.48958302" />
     </g>
+    <rect
+       style="opacity:1;fill:#ffc600;stroke:#000000;stroke-width:4.99999;stroke-linecap:round;paint-order:stroke fill markers;stop-color:#000000;fill-opacity:1"
+       id="rect894"
+       width="14.857789"
+       height="17.419477"
+       x="-219.28047"
+       y="6.1480503" />
   </g>
 </svg>

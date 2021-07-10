@@ -39,6 +39,7 @@ public class Attacker : MonoBehaviour
 
     public void Die()
     {
+        GameEvents.current.IncreaseVisibleArea(1.0f);
         GameObject explosionFx = GameObject.Instantiate<GameObject>(explosionEffectPrefab, transform.position, Quaternion.identity);
         Destroy(explosionFx, 3);
         AudioSource.PlayClipAtPoint(explosionSound, transform.position);
