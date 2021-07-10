@@ -21,6 +21,11 @@ public class FixedPositionSpawner : MonoBehaviour
         {
             GameObject spawnedObject = GameObject.Instantiate<GameObject>(objectToSpawn, transform.position, Quaternion.identity);
             lastSpawnTime = Time.realtimeSinceStartup;
+
+            if (spawnedObject.layer.Equals(LayerMask.NameToLayer("Attacker")))
+            {
+                GameEvents.current.IncreaseAttackerCount();
+            }
         }
     }
 }
