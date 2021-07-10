@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PlayerControllerKeyboard : MonoBehaviour
 {
@@ -19,9 +20,16 @@ public class PlayerControllerKeyboard : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        // single precise shot
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
-            GetComponent<ProjectileSpawner>().Fire(transform.position, transform.position + transform.up);
+            GetComponent<ProjectileSpawner>().Fire(transform.position, transform.position + transform.up, body.velocity);
+        }
+
+        // burst shot
+        else if (Input.GetMouseButton(1))
+        {
+            GetComponent<BurstShot>().Fire(body.velocity);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -41,6 +49,7 @@ public class PlayerControllerKeyboard : MonoBehaviour
         body.SetRotation(body.rotation + Mathf.Clamp(-Input.GetAxis("Horizontal") * maxRotation, -maxRotation, maxRotation));
         // body.AddTorque(Mathf.Clamp(-Input.GetAxis("Horizontal") * maxRotation, -maxRotation, maxRotation));
     }
+
 
 
 

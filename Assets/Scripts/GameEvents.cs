@@ -31,18 +31,16 @@ public class GameEvents : MonoBehaviour
         onAttackerDies?.Invoke(attacker);
     }
 
-
-
-
-    // Start is called before the first frame update
-    void Start()
+    public event Action<float> onIncreaseVisibleArea;
+    public void IncreaseVisibleArea(float increment)
     {
-
+        onIncreaseVisibleArea?.Invoke(increment);
     }
 
-    // Update is called once per frame
-    void Update()
+    public event Action<float> onDecreaseVisibleArea;
+    public void DecreaseVisibleArea(float decrement)
     {
-
+        onDecreaseVisibleArea?.Invoke(decrement);
     }
+
 }

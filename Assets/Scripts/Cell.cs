@@ -2,6 +2,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class Cell : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Cell : MonoBehaviour
     public GameObject enemySpawnerPrefab;
     public Sprite[] cellStatusSprites;
     public TextMeshProUGUI hpText;
+    public Color[] backgroundLightColor;
+    private Light2D backgroundLight;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +24,7 @@ public class Cell : MonoBehaviour
         GameEvents.current.onAttackerDies += (GameObject attacker) => { if (this != null) RemoveAttacker(attacker, this.gameObject); };
         numberOfAttackers = 0;
         cellStatus = CellStatus.HEALTHY;
+        backgroundLight = transform.Find("Background Light").GetComponent<Light2D>();
 
         StartCoroutine(RecoverHealth(1));
     }
@@ -42,16 +46,19 @@ public class Cell : MonoBehaviour
         if (GetNumberOfAttackers() == 0 && hp > 0)
         {
             cellStatus = CellStatus.HEALTHY;
+            backgroundLight.color = backgroundLightColor[0];
             GetComponentInChildren<SpriteRenderer>().sprite = cellStatusSprites[0];
         }
         else if (GetNumberOfAttackers() > 0 && hp > 0)
         {
             cellStatus = CellStatus.ATTACKED;
+            backgroundLight.color = backgroundLightColor[1];
             GetComponentInChildren<SpriteRenderer>().sprite = cellStatusSprites[1];
         }
         else if (hp <= 0 && cellStatus != CellStatus.INFECTED)
         {
             ConvertToInfectedCell();
+            backgroundLight.color = backgroundLightColor[2];
             GetComponentInChildren<SpriteRenderer>().sprite = cellStatusSprites[2];
         }
     }
