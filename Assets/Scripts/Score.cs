@@ -15,16 +15,24 @@ public class Score : MonoBehaviour
 
     void Start()
     {
-        money = 0;
-        timeInSeconds = Time.realtimeSinceStartup;
+        GameEvents.current.onIncreaseMoney += IncreaseMoney;
 
+        money = 0;
+        UpdateMoneyScoreVisuals();
+
+        timeInSeconds = Time.realtimeSinceStartup;
         StartCoroutine(IncreaseTimer());
     }
 
-    // Update is called once per frame
-    void Update()
+    private void IncreaseMoney(float increase)
     {
+        money += increase;
+        UpdateMoneyScoreVisuals();
+    }
 
+    private void UpdateMoneyScoreVisuals()
+    {
+        moneyText.text = money.ToString() + " $";
     }
 
     private IEnumerator IncreaseTimer()
@@ -38,5 +46,10 @@ public class Score : MonoBehaviour
             timeText.text = string.Format("{0:00}:{1:00}:{2:0}", timeSpan.TotalMinutes, timeSpan.Seconds, timeSpan.Milliseconds / 100);
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    private void OnDestroy()
+    {
+        GameEvents.current.onIncreaseMoney -= IncreaseMoney;
     }
 }
