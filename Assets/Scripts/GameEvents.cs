@@ -29,6 +29,7 @@ public class GameEvents : MonoBehaviour
     public void AttackerDies(GameObject attacker)
     {
         onAttackerDies?.Invoke(attacker);
+        onDecreaseAttackerCount?.Invoke();
     }
 
     public event Action<float> onIncreaseVisibleArea;
@@ -47,6 +48,18 @@ public class GameEvents : MonoBehaviour
     public void IncreaseMoney(float increase)
     {
         onIncreaseMoney?.Invoke(increase);
+    }
+
+    public event Action onIncreaseAttackerCount;
+    public void IncreaseAttackerCount()
+    {
+        onIncreaseAttackerCount?.Invoke();
+    }
+
+    public event Action onDecreaseAttackerCount;
+    public void DecreaseAttackerCount()
+    {
+        onDecreaseAttackerCount?.Invoke();
     }
 
 }
