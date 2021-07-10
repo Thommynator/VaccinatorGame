@@ -43,4 +43,10 @@ public class GameEvents : MonoBehaviour
         onDecreaseVisibleArea?.Invoke(decrement);
     }
 
+    public event Action<float> onIncreaseMoney;
+    public void IncreaseMoney(float increase)
+    {
+        onIncreaseMoney?.Invoke(increase);
+    }
+
 }
