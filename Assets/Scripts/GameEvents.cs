@@ -50,6 +50,12 @@ public class GameEvents : MonoBehaviour
         onIncreaseMoney?.Invoke(increase);
     }
 
+    public event Action<float> onDecreaseMoney;
+    public void DecreaseMoney(float decrease)
+    {
+        onDecreaseMoney?.Invoke(decrease);
+    }
+
     public event Action onIncreaseAttackerCount;
     public void IncreaseAttackerCount()
     {
@@ -60,6 +66,18 @@ public class GameEvents : MonoBehaviour
     public void DecreaseAttackerCount()
     {
         onDecreaseAttackerCount?.Invoke();
+    }
+
+    public event Action pauseGame;
+    public void PauseGame()
+    {
+        pauseGame?.Invoke();
+    }
+
+    public event Action resumeGame;
+    public void ResumeGame()
+    {
+        resumeGame?.Invoke();
     }
 
 }

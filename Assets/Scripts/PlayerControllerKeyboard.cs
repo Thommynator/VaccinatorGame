@@ -6,32 +6,47 @@ public class PlayerControllerKeyboard : MonoBehaviour
     public float maxSpeed;
     public float maxRotation;
     private Rigidbody2D body;
+    private bool canDoAction;
 
     void Start()
     {
+        GameEvents.current.resumeGame += () => canDoAction = true;
+        GameEvents.current.pauseGame += () => canDoAction = false;
+
+        canDoAction = true;
         body = GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
     {
+        if (!canDoAction)
+        {
+            return;
+        }
         Move();
         Rotate();
     }
 
     void Update()
     {
+        if (!canDoAction)
+        {
+            return;
+        }
+
         // single precise shot
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
-            GetComponent<ProjectileSpawner>().Fire(transform.position, transform.position + transform.up, body.velocity);
+            GetComponent<ProjectileSpawner>().Fire(transform.position, transform.position + transform.up, 2 * body.velocity);
         }
 
-        // burst shot
+        // burst attack
         else if (Input.GetMouseButton(1))
         {
-            GetComponent<BurstShot>().Fire(body.velocity);
+            GetComponent<BurstAttack>().Fire(body.velocity);
         }
 
+        // dash attack
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             GetComponent<DashAttack>().Dash(1);
