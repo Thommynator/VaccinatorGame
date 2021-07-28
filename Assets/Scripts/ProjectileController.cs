@@ -6,7 +6,6 @@ public class ProjectileController : MonoBehaviour
 {
 
     public float maxSpeed;
-    public float damage;
 
     private Rigidbody2D body;
 
@@ -25,6 +24,7 @@ public class ProjectileController : MonoBehaviour
         if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Attacker")))
         {
             Destroy(this.gameObject);
+            float damage = ShopItems.current.GetValueOf(ItemName.PROJECTILE_STRENGTH);
             collision.gameObject.GetComponent<Hp>().TakeDamage(damage);
         }
         if (!collision.gameObject.layer.Equals(LayerMask.NameToLayer("NonInteractable")))

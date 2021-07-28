@@ -5,21 +5,34 @@ public class DashAttack : MonoBehaviour
 {
     public float dashForce;
     private bool isDashing;
+    private float lastDashTime;
+
+    void Start()
+    {
+        lastDashTime = Time.time - 1000; // subtraction to make sure that there is no cooldown at the start of the game
+    }
 
     public bool IsDashing()
     {
         return isDashing;
     }
 
-    public void Dash(float dashDuration)
+    public bool Dash(float dashDuration)
     {
+        if (Time.time - lastDashTime <= ShopItems.current.GetValueOf(ItemName.DASH_ATTACK_COOLDOWN))
+        {
+            return false;
+        }
+
         isDashing = true;
         Rigidbody2D body;
         if (TryGetComponent<Rigidbody2D>(out body))
         {
             body.AddForce(transform.up * dashForce, ForceMode2D.Impulse);
+            lastDashTime = Time.time;
             StartCoroutine(DeactivateDash(dashDuration));
         }
+        return true;
     }
 
     private IEnumerator DeactivateDash(float afterDuration)

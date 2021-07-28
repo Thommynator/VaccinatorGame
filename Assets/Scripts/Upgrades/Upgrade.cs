@@ -20,6 +20,7 @@ public abstract class Upgrade : MonoBehaviour
     {
         if (CanLevelUp())
         {
+            GameEvents.current.DecreaseMoney(GetUpgradeCosts());
             level++;
             return true;
         }
@@ -39,13 +40,18 @@ public abstract class Upgrade : MonoBehaviour
         return difference / currentValue * 100;
     }
 
-    public bool IsActive()
-    {
-        return level > 0;
-    }
-
     public bool CanLevelUp()
     {
-        return level < maxLevel;
+        return !MaxLevelReached() && CanBuyUpgrade();
+    }
+
+    public bool MaxLevelReached()
+    {
+        return level >= maxLevel;
+    }
+
+    public bool CanBuyUpgrade()
+    {
+        return Score.current.GetMoney() >= GetUpgradeCosts();
     }
 }

@@ -7,15 +7,14 @@ public class Shop : MonoBehaviour
 
     private CanvasGroup canvasGroup;
 
+    public GameObject enterShopButton;
 
-    // Start is called before the first frame update
     void Start()
     {
         canvasGroup = GetComponentInChildren<CanvasGroup>();
         Hide();
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -23,15 +22,21 @@ public class Shop : MonoBehaviour
 
     public void Hide()
     {
+        GameEvents.current.ResumeGame();
         canvasGroup.alpha = 0f;
         canvasGroup.blocksRaycasts = false;
         Time.timeScale = 1;
+
+        enterShopButton.SetActive(true);
     }
 
     public void Show()
     {
+        GameEvents.current.PauseGame();
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
         Time.timeScale = 0;
+
+        enterShopButton.SetActive(false);
     }
 }

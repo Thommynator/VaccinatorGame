@@ -7,6 +7,7 @@ using System;
 public class Score : MonoBehaviour
 {
 
+    public static Score current;
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI attackerCountText;
@@ -18,21 +19,33 @@ public class Score : MonoBehaviour
     void Start()
     {
         GameEvents.current.onIncreaseMoney += IncreaseMoney;
+        GameEvents.current.onDecreaseMoney += DecreaseMoney;
         GameEvents.current.onIncreaseAttackerCount += IncreaseAttackerCount;
         GameEvents.current.onDecreaseAttackerCount += DecreaseAttackerCount;
+
+        current = this;
 
         money = 0;
         UpdateMoneyScoreVisuals();
 
-        timeInSeconds = Time.realtimeSinceStartup;
+        timeInSeconds = Time.time;
         StartCoroutine(IncreaseTimer());
 
         attackerCount = 0;
     }
 
+    public float GetMoney()
+    {
+        return money;
+    }
     private void IncreaseMoney(float increase)
     {
         money += increase;
+        UpdateMoneyScoreVisuals();
+    }
+    private void DecreaseMoney(float decrease)
+    {
+        money -= decrease;
         UpdateMoneyScoreVisuals();
     }
 
@@ -45,7 +58,7 @@ public class Score : MonoBehaviour
     {
         while (true)
         {
-            timeInSeconds = Time.realtimeSinceStartup;
+            timeInSeconds = Time.time;
 
             TimeSpan timeSpan = TimeSpan.FromSeconds(timeInSeconds);
             // 0:00 --> first number = index, second number = formatting (https://tinyurl.com/3fd6w7ey)
@@ -75,5 +88,8 @@ public class Score : MonoBehaviour
     private void OnDestroy()
     {
         GameEvents.current.onIncreaseMoney -= IncreaseMoney;
+        GameEvents.current.onDecreaseMoney -= DecreaseMoney;
+        GameEvents.current.onIncreaseAttackerCount -= IncreaseAttackerCount;
+        GameEvents.current.onDecreaseAttackerCount -= DecreaseAttackerCount;
     }
 }
