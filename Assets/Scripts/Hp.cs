@@ -11,11 +11,9 @@ public class Hp : MonoBehaviour
 
     private float hp;
 
-    // Start is called before the first frame update
     void Start()
     {
         SetHp(maxHp);
-
     }
 
     public float GetHp()
@@ -42,6 +40,5 @@ public class Hp : MonoBehaviour
     private void SetHp(float newHp)
     {
         hp = Mathf.Clamp(newHp, 0, maxHp);
-        // hpText.text = hp.ToString();
     }
 }

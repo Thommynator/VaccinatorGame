@@ -80,4 +80,10 @@ public class GameEvents : MonoBehaviour
         resumeGame?.Invoke();
     }
 
+    public event Action<float> shakeCamera;
+    public void ShakeCamera(float duration)
+    {
+        shakeCamera?.Invoke(duration);
+    }
+
 }
