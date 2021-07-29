@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BurstAttack : MonoBehaviour
 {
 
     public int numberOfBurstShotProjectiles;
+    public GameObject abilityButton;
+    public GameObject cooldownNumber;
     private float lastBurstAttackTime;
 
 
@@ -21,6 +25,7 @@ public class BurstAttack : MonoBehaviour
             return false;
         }
 
+        StartCoroutine(Cooldown());
         lastBurstAttackTime = Time.time;
         StartCoroutine(SpawnProjectiles(numberOfBurstShotProjectiles, initialVelocity));
         return true;
@@ -33,6 +38,36 @@ public class BurstAttack : MonoBehaviour
         {
             projectileSpawner.Fire(transform.position, transform.position + transform.up, initialVelocity);
             yield return new WaitForEndOfFrame();
+        }
+    }
+
+    private IEnumerator Cooldown()
+    {
+        float duration = ShopItems.current.GetValueOf(ItemName.BURST_ATTACK_COOLDOWN);
+        StartCoroutine(CooldownIndicatorNumber(duration));
+        abilityButton.GetComponent<Button>().interactable = false;
+        yield return new WaitForSeconds(duration);
+        abilityButton.GetComponent<Button>().interactable = true;
+    }
+
+    private IEnumerator CooldownIndicatorNumber(float duration)
+    {
+        int flooredDuration = Mathf.FloorToInt(duration);
+        cooldownNumber.GetComponent<TextMeshProUGUI>().text = flooredDuration.ToString();
+        float partialSecond = duration % 1.0f;
+        yield return new WaitForSeconds(partialSecond);
+
+        for (int i = flooredDuration; i >= 0; i--)
+        {
+            if (i == 0)
+            {
+                cooldownNumber.GetComponent<TextMeshProUGUI>().text = "";
+            }
+            else
+            {
+                cooldownNumber.GetComponent<TextMeshProUGUI>().text = i.ToString();
+            }
+            yield return new WaitForSeconds(1);
         }
     }
 }

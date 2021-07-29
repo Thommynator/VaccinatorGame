@@ -25,7 +25,7 @@ public class Score : MonoBehaviour
 
         current = this;
 
-        money = 0;
+        money = 5000;
         UpdateMoneyScoreVisuals();
 
         timeInSeconds = Time.time;
