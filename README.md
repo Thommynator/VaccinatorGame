@@ -17,6 +17,8 @@ You will need them, because the viruses will also get stronger over time and the
 ### Goal
 Keep your cells alive as long as possible. The **game** is **over** when all of your cells are infected.
 
+## [Try it in your browser](https://thommynator.github.io/VaccinatorGame/) 🕹
+
 ## Controls
 Keyboard & Mouse
 | Key | Control |
