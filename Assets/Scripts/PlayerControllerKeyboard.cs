@@ -10,8 +10,8 @@ public class PlayerControllerKeyboard : MonoBehaviour
 
     void Start()
     {
-        GameEvents.current.resumeGame += () => canDoAction = true;
-        GameEvents.current.pauseGame += () => canDoAction = false;
+        GameEvents.current.resumeGame += SetCanDoAction;
+        GameEvents.current.pauseGame += SetCanNotDoAction;
 
         canDoAction = true;
         body = GetComponent<Rigidbody2D>();
@@ -65,7 +65,20 @@ public class PlayerControllerKeyboard : MonoBehaviour
         // body.AddTorque(Mathf.Clamp(-Input.GetAxis("Horizontal") * maxRotation, -maxRotation, maxRotation));
     }
 
+    private void SetCanDoAction()
+    {
+        canDoAction = true;
+    }
 
+    private void SetCanNotDoAction()
+    {
+        canDoAction = false;
+    }
 
+    void OnDestroy()
+    {
+        GameEvents.current.resumeGame -= SetCanDoAction;
+        GameEvents.current.pauseGame -= SetCanNotDoAction;
+    }
 
 }

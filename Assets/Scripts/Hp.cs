@@ -20,6 +20,13 @@ public class Hp : MonoBehaviour
     {
         return hp;
     }
+
+    public float GetHpPercentage()
+    {
+        return 100 * hp / maxHp;
+    }
+
+
     public void IncreaseHp(float hpIncrease)
     {
         SetHp(hp + hpIncrease);
@@ -41,4 +48,5 @@ public class Hp : MonoBehaviour
     {
         hp = Mathf.Clamp(newHp, 0, maxHp);
     }
+
 }

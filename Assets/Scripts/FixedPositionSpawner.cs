@@ -11,7 +11,7 @@ public class FixedPositionSpawner : MonoBehaviour
 
     void Start()
     {
-        lastSpawnTime = Time.time;
+        lastSpawnTime = Time.time + Random.Range(0, 1.0f / spawnRatePerSecond);
     }
     // Update is called once per frame
     void Update()
@@ -20,6 +20,7 @@ public class FixedPositionSpawner : MonoBehaviour
         if (Time.time - lastSpawnTime > intervalTime)
         {
             GameObject spawnedObject = GameObject.Instantiate<GameObject>(objectToSpawn, transform.position, Quaternion.identity);
+            spawnedObject.transform.SetParent(this.transform);
             lastSpawnTime = Time.time;
 
             if (spawnedObject.layer.Equals(LayerMask.NameToLayer("Attacker")))

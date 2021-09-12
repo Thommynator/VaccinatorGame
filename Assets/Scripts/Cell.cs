@@ -14,6 +14,8 @@ public class Cell : MonoBehaviour
     public Sprite[] cellStatusSprites;
     public TextMeshProUGUI hpText;
     public Color[] backgroundLightColor;
+    public AudioClip cellAttackedClip;
+    public AudioClip cellInfectedClip;
     private Light2D backgroundLight;
 
     // Start is called before the first frame update
@@ -49,18 +51,25 @@ public class Cell : MonoBehaviour
             backgroundLight.color = backgroundLightColor[0];
             GetComponentInChildren<SpriteRenderer>().sprite = cellStatusSprites[0];
         }
-        else if (GetNumberOfAttackers() > 0 && hp > 0)
+        else if (GetNumberOfAttackers() > 0 && hp > 0 && cellStatus != CellStatus.ATTACKED)
         {
             cellStatus = CellStatus.ATTACKED;
             backgroundLight.color = backgroundLightColor[1];
             GetComponentInChildren<SpriteRenderer>().sprite = cellStatusSprites[1];
+            AudioSource.PlayClipAtPoint(cellAttackedClip, transform.position);
         }
         else if (hp <= 0 && cellStatus != CellStatus.INFECTED)
         {
             ConvertToInfectedCell();
             backgroundLight.color = backgroundLightColor[2];
             GetComponentInChildren<SpriteRenderer>().sprite = cellStatusSprites[2];
+            AudioSource.PlayClipAtPoint(cellInfectedClip, transform.position);
         }
+    }
+
+    public Sprite GetCurrentStatusSprite()
+    {
+        return GetComponentInChildren<SpriteRenderer>().sprite;
     }
 
     private void ConvertToInfectedCell()

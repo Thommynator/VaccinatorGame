@@ -8,6 +8,7 @@ public class DashAttack : MonoBehaviour
     public float dashForce;
     public GameObject abilityButton;
     public GameObject cooldownNumber;
+    public AudioClip dashSoundClip;
     private bool isDashing;
     private float lastDashTime;
 
@@ -28,6 +29,7 @@ public class DashAttack : MonoBehaviour
         {
             return false;
         }
+        AudioSource.PlayClipAtPoint(dashSoundClip, transform.position);
         StartCoroutine(Cooldown());
 
         isDashing = true;

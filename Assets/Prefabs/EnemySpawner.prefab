@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4933537914245252159}
   - component: {fileID: 4933537914245252158}
+  - component: {fileID: 3991510340583490185}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -46,3 +47,19 @@ MonoBehaviour:
   objectToSpawn: {fileID: 6190114309943042895, guid: d1f20ccb13804024bba47e19e8a44c69,
     type: 3}
   spawnRatePerSecond: 1
+--- !u!58 &3991510340583490185
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4933537914245252145}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5

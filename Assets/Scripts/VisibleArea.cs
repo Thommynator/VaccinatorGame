@@ -26,6 +26,7 @@ public class VisibleArea : MonoBehaviour
         StartCoroutine(DecreaseVisibleArea());
     }
 
+
     private void IncreaseVisableDistance(float increase)
     {
         distance += increase;

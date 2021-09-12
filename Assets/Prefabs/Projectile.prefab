@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 20
-  damage: 10
+  shootingSoundClip: {fileID: 8300000, guid: a008fa5c82fe98741bac5dcad8acda6c, type: 3}
 --- !u!50 &1758837997003654241
 Rigidbody2D:
   serializedVersion: 4

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameEvents : MonoBehaviour
@@ -11,6 +9,7 @@ public class GameEvents : MonoBehaviour
     void Awake()
     {
         current = this;
+        LeanTween.reset();
     }
 
     public event Action<GameObject, GameObject> onAttackerAttachsToCell;

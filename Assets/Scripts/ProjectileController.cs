@@ -1,17 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
 
     public float maxSpeed;
-
+    public AudioClip shootingSoundClip;
     private Rigidbody2D body;
 
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
+        AudioSource.PlayClipAtPoint(shootingSoundClip, transform.position);
     }
 
     void FixedUpdate()
