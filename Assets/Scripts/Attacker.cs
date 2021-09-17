@@ -4,7 +4,6 @@ public class Attacker : MonoBehaviour
 {
     public float damage;
     public float attackCooldown;
-    public AudioClip explosionSound;
     public GameObject explosionEffectPrefab;
     private float lastAttackTime;
 
@@ -44,7 +43,6 @@ public class Attacker : MonoBehaviour
         GameEvents.current.ShakeCamera(0.25f);
         GameObject explosionFx = GameObject.Instantiate<GameObject>(explosionEffectPrefab, transform.position, Quaternion.identity);
         Destroy(explosionFx, 3);
-        AudioSource.PlayClipAtPoint(explosionSound, transform.position);
         Destroy(this.gameObject);
     }
 

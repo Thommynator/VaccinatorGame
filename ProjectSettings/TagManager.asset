@@ -6,11 +6,12 @@ TagManager:
   tags:
   - Cell
   - Virus
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Void
   - Water
   - UI
   - 
@@ -18,7 +19,7 @@ TagManager:
   - Attacker
   - Player
   - NonInteractable
-  - 
+  - Projectile
   - 
   - 
   - 

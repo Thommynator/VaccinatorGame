@@ -6,8 +6,8 @@ public class VisibleArea : MonoBehaviour
 {
     public float distance;
 
+    public float minDistance;
     private float maxDistance;
-
     public float decreaseIntervalInSeconds;
     public float decreaseAmount;
 
@@ -30,13 +30,13 @@ public class VisibleArea : MonoBehaviour
     private void IncreaseVisableDistance(float increase)
     {
         distance += increase;
-        distance = Mathf.Clamp(distance, 0, maxDistance);
+        distance = Mathf.Clamp(distance, minDistance, maxDistance);
     }
 
     private void DecreaseVisableDistance(float decrease)
     {
         distance -= decrease;
-        distance = Mathf.Clamp(distance, 0, maxDistance);
+        distance = Mathf.Clamp(distance, minDistance, maxDistance);
     }
 
     void Update()

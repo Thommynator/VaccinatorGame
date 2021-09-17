@@ -7,6 +7,8 @@ public class BurstAttack : MonoBehaviour
 {
 
     public int numberOfBurstShotProjectiles;
+    public float maxSpreadAngle;
+
     public GameObject abilityButton;
     public GameObject cooldownNumber;
     private float lastBurstAttackTime;
@@ -33,10 +35,21 @@ public class BurstAttack : MonoBehaviour
     private IEnumerator SpawnProjectiles(int projectiles, Vector3 initialVelocity)
     {
         ProjectileSpawner projectileSpawner = GetComponent<ProjectileSpawner>();
+        int direction = 1;
+        float spreadAngle = 0f;
+        float spreadAngleIncrement = 2 * maxSpreadAngle / projectiles;
+
         for (int i = 0; i < projectiles; i++)
         {
-            projectileSpawner.Fire(transform.position, transform.position + transform.up, initialVelocity);
-            yield return new WaitForEndOfFrame();
+            if (direction > 0)
+            {
+                spreadAngle += spreadAngleIncrement;
+            }
+
+            Vector3 target = Quaternion.AngleAxis(spreadAngle * direction, Vector3.forward) * transform.up + transform.position;
+            direction *= -1;
+            projectileSpawner.Fire(transform.position, target, initialVelocity);
+            yield return new WaitForSeconds(0.02f);
         }
     }
 

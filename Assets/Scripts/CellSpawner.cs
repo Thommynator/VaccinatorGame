@@ -32,7 +32,8 @@ public class CellSpawner : MonoBehaviour
     private Vector3 FindNonOverlappingPosition()
     {
         Vector3 randomPosition = CreateRandomPosition();
-        for (int i = 0; i < 20000; i++)
+        int maxIterations = 10000;
+        for (int i = 0; i < maxIterations; i++)
         {
             Collider2D collider = Physics2D.OverlapCircle(randomPosition, clearRadiusAroundCell);
 
@@ -41,7 +42,7 @@ public class CellSpawner : MonoBehaviour
                 break;
             }
             randomPosition = CreateRandomPosition();
-            if (i == 499)
+            if (i == maxIterations - 1)
             {
                 Debug.Log("Couldn't find proper position for cell.");
             }

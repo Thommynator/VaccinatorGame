@@ -17,6 +17,7 @@ public class Cell : MonoBehaviour
     public AudioClip cellAttackedClip;
     public AudioClip cellInfectedClip;
     private Light2D backgroundLight;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,7 @@ public class Cell : MonoBehaviour
         numberOfAttackers = 0;
         cellStatus = CellStatus.HEALTHY;
         backgroundLight = transform.Find("Background Light").GetComponent<Light2D>();
+        audioSource = GetComponent<AudioSource>();
 
         StartCoroutine(RecoverHealth(1));
     }
@@ -56,14 +58,16 @@ public class Cell : MonoBehaviour
             cellStatus = CellStatus.ATTACKED;
             backgroundLight.color = backgroundLightColor[1];
             GetComponentInChildren<SpriteRenderer>().sprite = cellStatusSprites[1];
-            AudioSource.PlayClipAtPoint(cellAttackedClip, transform.position);
+            audioSource.clip = cellAttackedClip;
+            audioSource.Play();
         }
         else if (hp <= 0 && cellStatus != CellStatus.INFECTED)
         {
             ConvertToInfectedCell();
             backgroundLight.color = backgroundLightColor[2];
             GetComponentInChildren<SpriteRenderer>().sprite = cellStatusSprites[2];
-            AudioSource.PlayClipAtPoint(cellInfectedClip, transform.position);
+            audioSource.clip = cellInfectedClip;
+            audioSource.Play();
         }
     }
 
