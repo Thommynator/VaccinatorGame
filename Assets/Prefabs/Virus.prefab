@@ -184,7 +184,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 2
   attackCooldown: 1
-  explosionSound: {fileID: 8300000, guid: 8b8ef523ce5a3fc408732b5f2f1e215d, type: 3}
   explosionEffectPrefab: {fileID: 569126039031927083, guid: 59bfb16f9b7c26841af59d1c929ce24a,
     type: 3}
 --- !u!114 &7223297694552387442
@@ -199,7 +198,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4943eb85b36cdef43b0951d16749846c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 10
+  maxHpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 1
+      value: 10
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 5
+      value: 10
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 20
+      value: 50
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &5120494736093824959
 MonoBehaviour:
   m_ObjectHideFlags: 0

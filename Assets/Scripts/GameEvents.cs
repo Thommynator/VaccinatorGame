@@ -85,4 +85,10 @@ public class GameEvents : MonoBehaviour
         shakeCamera?.Invoke(duration);
     }
 
+    public event Action<int> increaseWave;
+    public void IncreaseWave(int newWave)
+    {
+        increaseWave?.Invoke(newWave);
+    }
+
 }

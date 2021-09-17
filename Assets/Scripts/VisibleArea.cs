@@ -9,7 +9,7 @@ public class VisibleArea : MonoBehaviour
     public float minDistance;
     private float maxDistance;
     public float decreaseIntervalInSeconds;
-    public float decreaseAmount;
+    public AnimationCurve decreaseAmount;
 
     private GameObject spriteMaskObject;
     private Light2D light2D;
@@ -49,7 +49,7 @@ public class VisibleArea : MonoBehaviour
     {
         while (true)
         {
-            DecreaseVisableDistance(decreaseAmount);
+            DecreaseVisableDistance(decreaseAmount.Evaluate(WaveManager.current.GetCurrentWave()));
             yield return new WaitForSeconds(decreaseIntervalInSeconds);
         }
     }

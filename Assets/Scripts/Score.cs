@@ -11,6 +11,7 @@ public class Score : MonoBehaviour
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI attackerCountText;
+    public TextMeshProUGUI waveCountText;
 
     private float money;
     private float timeInSeconds;
@@ -22,6 +23,7 @@ public class Score : MonoBehaviour
         GameEvents.current.onDecreaseMoney += DecreaseMoney;
         GameEvents.current.onIncreaseAttackerCount += IncreaseAttackerCount;
         GameEvents.current.onDecreaseAttackerCount += DecreaseAttackerCount;
+        GameEvents.current.increaseWave += UpdateWaveCount;
 
         current = this;
 
@@ -62,7 +64,7 @@ public class Score : MonoBehaviour
 
             TimeSpan timeSpan = TimeSpan.FromSeconds(timeInSeconds);
             // 0:00 --> first number = index, second number = formatting (https://tinyurl.com/3fd6w7ey)
-            timeText.text = string.Format("{0:00}:{1:00}:{2:0}", timeSpan.TotalMinutes, timeSpan.Seconds, timeSpan.Milliseconds / 100);
+            timeText.text = string.Format("{0:00}:{1:00}:{2:0}", timeSpan.Minutes, timeSpan.Seconds, timeSpan.Milliseconds / 100);
             yield return new WaitForSeconds(0.1f);
         }
     }
@@ -85,11 +87,17 @@ public class Score : MonoBehaviour
         attackerCountText.text = attackerCount.ToString();
     }
 
+    private void UpdateWaveCount(int newWave)
+    {
+        waveCountText.text = "Wave: " + newWave;
+    }
+
     private void OnDestroy()
     {
         GameEvents.current.onIncreaseMoney -= IncreaseMoney;
         GameEvents.current.onDecreaseMoney -= DecreaseMoney;
         GameEvents.current.onIncreaseAttackerCount -= IncreaseAttackerCount;
         GameEvents.current.onDecreaseAttackerCount -= DecreaseAttackerCount;
+        GameEvents.current.increaseWave -= UpdateWaveCount;
     }
 }

@@ -5,7 +5,8 @@ using UnityEngine;
 public class Hp : MonoBehaviour
 {
 
-    public float maxHp;
+    public AnimationCurve maxHpCurve;
+    private float maxHp;
     public delegate void Die();
     public Die dyingMethod;
 
@@ -13,6 +14,7 @@ public class Hp : MonoBehaviour
 
     void Start()
     {
+        maxHp = maxHpCurve.Evaluate(WaveManager.current.GetCurrentWave());
         SetHp(maxHp);
     }
 

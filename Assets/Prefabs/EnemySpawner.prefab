@@ -46,7 +46,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToSpawn: {fileID: 6190114309943042895, guid: d1f20ccb13804024bba47e19e8a44c69,
     type: 3}
-  spawnRatePerSecond: 1
+  spawnIntervalTimeInSec:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 1
+      value: 10
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 10
+      value: 7
+      inSlope: -0.6825043
+      outSlope: -0.6825043
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.34119976
+      outWeight: 0.22953454
+    - serializedVersion: 3
+      time: 20
+      value: 0.5
+      inSlope: -0.33420417
+      outSlope: -0.33420417
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.18910187
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!58 &3991510340583490185
 CircleCollider2D:
   m_ObjectHideFlags: 0

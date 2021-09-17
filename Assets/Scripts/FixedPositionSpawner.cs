@@ -5,18 +5,18 @@ public class FixedPositionSpawner : MonoBehaviour
 
     public GameObject objectToSpawn;
 
-    public float spawnRatePerSecond;
+    public AnimationCurve spawnIntervalTimeInSec;
 
     private float lastSpawnTime;
 
     void Start()
     {
-        lastSpawnTime = Time.time + Random.Range(0, 1.0f / spawnRatePerSecond);
+        lastSpawnTime = Time.time + Random.Range(0, SpawnIntervalTime());
     }
     // Update is called once per frame
     void Update()
     {
-        float intervalTime = 1.0f / spawnRatePerSecond;
+        float intervalTime = SpawnIntervalTime();
         if (Time.time - lastSpawnTime > intervalTime)
         {
             GameObject spawnedObject = GameObject.Instantiate<GameObject>(objectToSpawn, transform.position, Quaternion.identity);
@@ -28,5 +28,10 @@ public class FixedPositionSpawner : MonoBehaviour
                 GameEvents.current.IncreaseAttackerCount();
             }
         }
+    }
+
+    private float SpawnIntervalTime()
+    {
+        return spawnIntervalTimeInSec.Evaluate(WaveManager.current.GetCurrentWave());
     }
 }
