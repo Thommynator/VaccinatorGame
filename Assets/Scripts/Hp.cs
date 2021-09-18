@@ -12,7 +12,7 @@ public class Hp : MonoBehaviour
 
     private float hp;
 
-    void Start()
+    void Awake()
     {
         maxHp = maxHpCurve.Evaluate(WaveManager.current.GetCurrentWave());
         SetHp(maxHp);

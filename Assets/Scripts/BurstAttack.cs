@@ -16,18 +16,18 @@ public class BurstAttack : MonoBehaviour
 
     void Start()
     {
-        lastBurstAttackTime = Time.time - 1000; // subtraction to make sure that there is no cooldown at the start of the game
+        lastBurstAttackTime = Time.timeSinceLevelLoad - 1000; // subtraction to make sure that there is no cooldown at the start of the game
     }
 
     public bool Fire(Vector3 initialVelocity)
     {
-        if (Time.time - lastBurstAttackTime <= ShopItems.current.GetValueOf(ItemName.BURST_ATTACK_COOLDOWN))
+        if (Time.timeSinceLevelLoad - lastBurstAttackTime <= ShopItems.current.GetValueOf(ItemName.BURST_ATTACK_COOLDOWN))
         {
             return false;
         }
 
         StartCoroutine(Cooldown());
-        lastBurstAttackTime = Time.time;
+        lastBurstAttackTime = Time.timeSinceLevelLoad;
         StartCoroutine(SpawnProjectiles(numberOfBurstShotProjectiles, initialVelocity));
         return true;
     }

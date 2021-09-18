@@ -9,7 +9,7 @@ public class CameraShake : MonoBehaviour
 
     void Start()
     {
-        GameEvents.current.shakeCamera += ShakeCamera;
+        GameEvents.current.onShakeCamera += ShakeCamera;
 
         cam = GetComponent<CinemachineVirtualCamera>();
     }
@@ -30,6 +30,6 @@ public class CameraShake : MonoBehaviour
 
     void OnDestroy()
     {
-        GameEvents.current.shakeCamera -= ShakeCamera;
+        GameEvents.current.onShakeCamera -= ShakeCamera;
     }
 }

@@ -11,17 +11,17 @@ public class FixedPositionSpawner : MonoBehaviour
 
     void Start()
     {
-        lastSpawnTime = Time.time + Random.Range(0, SpawnIntervalTime());
+        lastSpawnTime = Time.timeSinceLevelLoad  + Random.Range(0, SpawnIntervalTime());
     }
     // Update is called once per frame
     void Update()
     {
         float intervalTime = SpawnIntervalTime();
-        if (Time.time - lastSpawnTime > intervalTime)
+        if (Time.timeSinceLevelLoad  - lastSpawnTime > intervalTime)
         {
             GameObject spawnedObject = GameObject.Instantiate<GameObject>(objectToSpawn, transform.position, Quaternion.identity);
             spawnedObject.transform.SetParent(this.transform);
-            lastSpawnTime = Time.time;
+            lastSpawnTime = Time.timeSinceLevelLoad ;
 
             if (spawnedObject.layer.Equals(LayerMask.NameToLayer("Attacker")))
             {

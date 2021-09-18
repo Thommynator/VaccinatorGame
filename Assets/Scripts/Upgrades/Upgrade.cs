@@ -27,9 +27,9 @@ public abstract class Upgrade : MonoBehaviour
         return false;
     }
 
-    public float GetUpgradeCosts()
+    public int GetUpgradeCosts()
     {
-        return (level + 1) * costsPerLevel;
+        return Mathf.RoundToInt((level + 1) * costsPerLevel);
     }
 
     public float RelativeChangeWhenLevelUp()
@@ -52,6 +52,6 @@ public abstract class Upgrade : MonoBehaviour
 
     public bool CanBuyUpgrade()
     {
-        return Score.current.GetMoney() >= GetUpgradeCosts();
+        return GameManager.current.GetMoney() >= GetUpgradeCosts();
     }
 }

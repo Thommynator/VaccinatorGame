@@ -15,25 +15,17 @@ public class Attacker : MonoBehaviour
         GameEvents.current.onAttackerDetachesFromCell += StartMoving;
 
         GetComponent<Hp>().dyingMethod = Die;
-        lastAttackTime = Time.time;
+        lastAttackTime = Time.timeSinceLevelLoad ;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            GameEvents.current.AttackerDetachesFromCell(this.gameObject, GameObject.Find("Cell"));
-        }
-    }
 
     public void AttackCell(GameObject cell)
     {
         LookAt(cell);
-        if (Time.time - lastAttackTime > attackCooldown)
+        if (Time.timeSinceLevelLoad  - lastAttackTime > attackCooldown)
         {
             cell.GetComponent<Hp>().TakeDamage(damage);
-            lastAttackTime = Time.time;
+            lastAttackTime = Time.timeSinceLevelLoad ;
         }
     }
 

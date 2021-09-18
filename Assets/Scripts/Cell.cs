@@ -6,7 +6,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class Cell : MonoBehaviour
 {
-    public HashSet<GameObject> attackedBy = new HashSet<GameObject>();
+    public HashSet<GameObject> attackedBy;
     public int numberOfAttackers;
     public CellStatus cellStatus;
     public float hpRegenarationPerSecond;
@@ -24,8 +24,9 @@ public class Cell : MonoBehaviour
     {
         GameEvents.current.onAttackerAttachsToCell += AddAttacker;
         GameEvents.current.onAttackerDetachesFromCell += RemoveAttacker;
-        GameEvents.current.onAttackerDies += (GameObject attacker) => { if (this != null) RemoveAttacker(attacker, this.gameObject); };
+        GameEvents.current.onAttackerDies += RemoveAttacker;
         numberOfAttackers = 0;
+        attackedBy = new HashSet<GameObject>();
         cellStatus = CellStatus.HEALTHY;
         backgroundLight = transform.Find("Background Light").GetComponent<Light2D>();
         audioSource = GetComponent<AudioSource>();
@@ -41,7 +42,7 @@ public class Cell : MonoBehaviour
             attacker.GetComponent<Attacker>().AttackCell(this.gameObject);
         }
         SetCellStatus();
-        hpText.text = GetComponent<Hp>().GetHp().ToString();
+        hpText.text = GetComponent<Hp>().GetHpPercentage().ToString();
     }
 
     private void SetCellStatus()
@@ -120,6 +121,15 @@ public class Cell : MonoBehaviour
 
     }
 
+    private void RemoveAttacker(GameObject attacker)
+    {
+        if (this != null)
+        {
+            RemoveAttacker(attacker, this.gameObject);
+        }
+    }
+
+
     private void RemoveAttacker(GameObject attacker, GameObject cell)
     {
         if (cell != this.gameObject)
@@ -151,6 +161,7 @@ public class Cell : MonoBehaviour
     {
         GameEvents.current.onAttackerAttachsToCell -= AddAttacker;
         GameEvents.current.onAttackerDetachesFromCell -= RemoveAttacker;
+        GameEvents.current.onAttackerDies -= RemoveAttacker;
     }
 
     public enum CellStatus

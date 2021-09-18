@@ -10,8 +10,8 @@ public class PlayerControllerKeyboard : MonoBehaviour
 
     void Start()
     {
-        GameEvents.current.resumeGame += SetCanDoAction;
-        GameEvents.current.pauseGame += SetCanNotDoAction;
+        GameEvents.current.onResumeGame += SetCanDoAction;
+        GameEvents.current.onPauseGame += SetCanNotDoAction;
 
         canDoAction = true;
         body = GetComponent<Rigidbody2D>();
@@ -77,8 +77,8 @@ public class PlayerControllerKeyboard : MonoBehaviour
 
     void OnDestroy()
     {
-        GameEvents.current.resumeGame -= SetCanDoAction;
-        GameEvents.current.pauseGame -= SetCanNotDoAction;
+        GameEvents.current.onResumeGame -= SetCanDoAction;
+        GameEvents.current.onPauseGame -= SetCanNotDoAction;
     }
 
 }

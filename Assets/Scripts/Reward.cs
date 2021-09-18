@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Reward : MonoBehaviour
 {
-    public float rewardAmount;
+    public int rewardAmount;
 
     private void OnDestroy()
     {
