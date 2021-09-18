@@ -109,10 +109,10 @@ public class GameEvents : MonoBehaviour
         onGameOver?.Invoke();
     }
 
-    public event Action<float> onShakeCamera;
-    public void ShakeCamera(float duration)
+    public event Action<float, float> onShakeCamera;
+    public void ShakeCamera(float duration, float strength)
     {
-        onShakeCamera?.Invoke(duration);
+        onShakeCamera?.Invoke(duration, strength);
     }
 
 }

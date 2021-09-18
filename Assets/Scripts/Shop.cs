@@ -25,17 +25,15 @@ public class Shop : MonoBehaviour
         GameEvents.current.ResumeGame();
         canvasGroup.alpha = 0f;
         canvasGroup.blocksRaycasts = false;
-        Time.timeScale = 1;
 
         enterShopButton.SetActive(true);
     }
 
     public void Show()
     {
-        GameEvents.current.PauseGame();
+        Time.timeScale = 0;
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
-        Time.timeScale = 0;
 
         enterShopButton.SetActive(false);
     }

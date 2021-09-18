@@ -15,24 +15,24 @@ public class Attacker : MonoBehaviour
         GameEvents.current.onAttackerDetachesFromCell += StartMoving;
 
         GetComponent<Hp>().dyingMethod = Die;
-        lastAttackTime = Time.timeSinceLevelLoad ;
+        lastAttackTime = Time.timeSinceLevelLoad;
     }
 
 
     public void AttackCell(GameObject cell)
     {
         LookAt(cell);
-        if (Time.timeSinceLevelLoad  - lastAttackTime > attackCooldown)
+        if (Time.timeSinceLevelLoad - lastAttackTime > attackCooldown)
         {
             cell.GetComponent<Hp>().TakeDamage(damage);
-            lastAttackTime = Time.timeSinceLevelLoad ;
+            lastAttackTime = Time.timeSinceLevelLoad;
         }
     }
 
     public void Die()
     {
         GameEvents.current.IncreaseVisibleArea(1.0f);
-        GameEvents.current.ShakeCamera(0.25f);
+        GameEvents.current.ShakeCamera(0.25f, 5);
         GameObject explosionFx = GameObject.Instantiate<GameObject>(explosionEffectPrefab, transform.position, Quaternion.identity);
         Destroy(explosionFx, 3);
         Destroy(this.gameObject);

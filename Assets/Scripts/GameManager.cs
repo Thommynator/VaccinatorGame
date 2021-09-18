@@ -17,11 +17,15 @@ public class GameManager : MonoBehaviour
     public GameObject hud;
     public GameObject gameOverScreen;
     public GameObject shop;
+    public GameObject pauseScreen;
+
 
     [Header("Other")]
     public GameObject player;
 
     private GameObject cellsParentGameObject;
+
+    private bool isPaused;
 
     void Awake()
     {
@@ -29,6 +33,8 @@ public class GameManager : MonoBehaviour
         GameEvents.current.onDecreaseMoney += DecreaseMoney;
         GameEvents.current.onIncreaseAttackerCount += IncreaseAttackerCount;
         GameEvents.current.onDecreaseAttackerCount += DecreaseAttackerCount;
+        GameEvents.current.onPauseGame += PauseGame;
+        GameEvents.current.onResumeGame += ResumeGame;
 
         current = this;
 
@@ -38,7 +44,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         attackerCount = 0;
-        timeInSeconds = Time.timeSinceLevelLoad ;
+        timeInSeconds = Time.timeSinceLevelLoad;
+        isPaused = false;
+        GameEvents.current.ResumeGame();
         StartCoroutine(IncreaseTimer());
     }
     void Update()
@@ -48,14 +56,39 @@ public class GameManager : MonoBehaviour
         {
             Restart();
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPaused)
+            {
+                GameEvents.current.ResumeGame();
+            }
+            else
+            {
+                GameEvents.current.PauseGame();
+            }
+        }
         HandleGameOver();
+    }
+
+    private void PauseGame()
+    {
+        Time.timeScale = 0.0f;
+        isPaused = true;
+        pauseScreen.SetActive(true);
+    }
+
+    private void ResumeGame()
+    {
+        Time.timeScale = 1.0f;
+        isPaused = false;
+        pauseScreen.SetActive(false);
     }
 
     private void HandleGameOver()
     {
         if (IsGameOver())
         {
-            Time.timeScale = 0.0f;
+            PauseGame();
             hud.SetActive(false);
             shop.SetActive(false);
             player.SetActive(false);
@@ -64,7 +97,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Time.timeScale = 1.0f;
             hud.SetActive(true);
             shop.SetActive(true);
             player.SetActive(true);
@@ -100,7 +132,7 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            this.timeInSeconds = Time.timeSinceLevelLoad ;
+            this.timeInSeconds = Time.timeSinceLevelLoad;
             GameEvents.current.UpdateSurviveTimeScore(timeInSeconds);
             yield return new WaitForSeconds(0.1f);
         }
@@ -141,11 +173,13 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
+        GetComponent<AudioSource>().Play();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
     }
 
     public void ExitGame()
     {
+        GetComponent<AudioSource>().Play();
         Application.Quit();
     }
 
@@ -155,5 +189,7 @@ public class GameManager : MonoBehaviour
         GameEvents.current.onDecreaseMoney -= DecreaseMoney;
         GameEvents.current.onIncreaseAttackerCount -= IncreaseAttackerCount;
         GameEvents.current.onDecreaseAttackerCount -= DecreaseAttackerCount;
+        GameEvents.current.onPauseGame -= PauseGame;
+        GameEvents.current.onResumeGame -= ResumeGame;
     }
 }

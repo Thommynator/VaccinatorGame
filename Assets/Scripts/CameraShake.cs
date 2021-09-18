@@ -14,14 +14,14 @@ public class CameraShake : MonoBehaviour
         cam = GetComponent<CinemachineVirtualCamera>();
     }
 
-    private void ShakeCamera(float duration)
+    private void ShakeCamera(float duration, float strength)
     {
-        StartCoroutine(Shake(duration));
+        StartCoroutine(Shake(duration, strength));
     }
 
-    private IEnumerator Shake(float duration)
+    private IEnumerator Shake(float duration, float strength)
     {
-        cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 2;
+        cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = strength;
         cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0.2f;
         yield return new WaitForSeconds(duration);
         cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;

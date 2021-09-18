@@ -9,7 +9,6 @@ public class GameOver : MonoBehaviour
     public TextMeshProUGUI waveText;
     public TextMeshProUGUI timeText;
 
-
     void Start()
     {
         GameEvents.current.onGameOver += UpdateGameOverScreen;

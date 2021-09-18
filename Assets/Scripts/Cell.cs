@@ -91,6 +91,8 @@ public class Cell : MonoBehaviour
 
         GameObject enemySpawner = GameObject.Instantiate<GameObject>(enemySpawnerPrefab, transform.position, Quaternion.identity);
         enemySpawner.transform.SetParent(this.transform);
+
+        GameEvents.current.ShakeCamera(0.5f, 10);
     }
 
     private IEnumerator RecoverHealth(float waitTime)
