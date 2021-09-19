@@ -37,7 +37,7 @@ public class PlayerControllerKeyboard : MonoBehaviour
         // single precise shot
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
-            GetComponent<ProjectileSpawner>().Fire(transform.position, transform.position + transform.up, 2 * body.velocity);
+            GetComponent<ProjectileSpawner>().Fire(transform.position, transform.position + transform.up, Vector3.zero);
         }
 
         // burst attack

@@ -31,7 +31,7 @@ public class Shop : MonoBehaviour
 
     public void Show()
     {
-        Time.timeScale = 0;
+        GameEvents.current.PauseGame();
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
 

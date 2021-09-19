@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class BurstAttack : MonoBehaviour
 {
-
-    public int numberOfBurstShotProjectiles;
     public float maxSpreadAngle;
 
     public GameObject abilityButton;
@@ -28,6 +26,7 @@ public class BurstAttack : MonoBehaviour
 
         StartCoroutine(Cooldown());
         lastBurstAttackTime = Time.timeSinceLevelLoad;
+        int numberOfBurstShotProjectiles = Mathf.RoundToInt(ShopItems.current.GetValueOf(ItemName.BURST_SHOTS));
         StartCoroutine(SpawnProjectiles(numberOfBurstShotProjectiles, initialVelocity));
         return true;
     }

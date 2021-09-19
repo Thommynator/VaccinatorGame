@@ -9,7 +9,6 @@ public class Cell : MonoBehaviour
     public HashSet<GameObject> attackedBy;
     public int numberOfAttackers;
     public CellStatus cellStatus;
-    public float hpRegenarationPerSecond;
     public GameObject enemySpawnerPrefab;
     public Sprite[] cellStatusSprites;
     public TextMeshProUGUI hpText;
@@ -101,7 +100,7 @@ public class Cell : MonoBehaviour
         {
             if (cellStatus == CellStatus.HEALTHY)
             {
-                GetComponent<Hp>().IncreaseHp(hpRegenarationPerSecond);
+                GetComponent<Hp>().IncreaseHp(ShopItems.current.GetValueOf(ItemName.CELL_REGENERATION));
             }
             yield return new WaitForSeconds(waitTime);
         }

@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
         GameEvents.current.onIncreaseAttackerCount += IncreaseAttackerCount;
         GameEvents.current.onDecreaseAttackerCount += DecreaseAttackerCount;
         GameEvents.current.onPauseGame += PauseGame;
+        GameEvents.current.onShowPauseScreen += ShowPauseScreen;
         GameEvents.current.onResumeGame += ResumeGame;
 
         current = this;
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1;
         attackerCount = 0;
         timeInSeconds = Time.timeSinceLevelLoad;
         isPaused = false;
@@ -65,6 +67,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 GameEvents.current.PauseGame();
+                GameEvents.current.ShowPauseScreen();
             }
         }
         HandleGameOver();
@@ -74,11 +77,16 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0.0f;
         isPaused = true;
+    }
+
+    private void ShowPauseScreen()
+    {
         pauseScreen.SetActive(true);
     }
 
     private void ResumeGame()
     {
+        GetComponent<AudioSource>().Play();
         Time.timeScale = 1.0f;
         isPaused = false;
         pauseScreen.SetActive(false);
@@ -88,7 +96,7 @@ public class GameManager : MonoBehaviour
     {
         if (IsGameOver())
         {
-            PauseGame();
+            GameEvents.current.PauseGame();
             hud.SetActive(false);
             shop.SetActive(false);
             player.SetActive(false);
@@ -190,6 +198,7 @@ public class GameManager : MonoBehaviour
         GameEvents.current.onIncreaseAttackerCount -= IncreaseAttackerCount;
         GameEvents.current.onDecreaseAttackerCount -= DecreaseAttackerCount;
         GameEvents.current.onPauseGame -= PauseGame;
+        GameEvents.current.onShowPauseScreen -= ShowPauseScreen;
         GameEvents.current.onResumeGame -= ResumeGame;
     }
 }

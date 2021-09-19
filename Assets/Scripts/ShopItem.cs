@@ -17,30 +17,30 @@ public class ShopItem : MonoBehaviour
     [Header("Value")]
 
     public TextMeshProUGUI valueText;
+    public TextMeshProUGUI improvementText;
     public string valueSuffix;
     public TextMeshProUGUI valueSuffixText;
 
-    [Header("Upgrade Costs & Improvement")]
-    public TextMeshProUGUI relativeChangeText;
+    [Header("Upgrade Costs")]
     public TextMeshProUGUI costs;
-    private Upgrade upgrade;
+    private ItemUpgrade itemUpgrade;
 
     void Start()
     {
-        if (!TryGetComponent<Upgrade>(out upgrade))
+        if (!TryGetComponent<ItemUpgrade>(out itemUpgrade))
         {
             Debug.Log("'Upgrade' component is missing!");
             return;
         }
 
-        itemNameText.text = upgrade.upgradeName;
-        itemDescriptionText.text = upgrade.description;
+        itemNameText.text = itemUpgrade.upgradeName;
+        itemDescriptionText.text = itemUpgrade.description;
         UpdateValues();
     }
 
-    public void UpgradeItem()
+    public void LevelUp()
     {
-        if (upgrade.TryLevelUp())
+        if (itemUpgrade.TryLevelUp())
         {
             UpdateValues();
         }
@@ -50,20 +50,16 @@ public class ShopItem : MonoBehaviour
     private void UpdateValues()
     {
         // level
-        currentLevelText.text = upgrade.level.ToString();
-        maximumLevelText.text = upgrade.maxLevel.ToString();
-
-        // relative improvement when level up
-        int change = Mathf.FloorToInt(upgrade.RelativeChangeWhenLevelUp());
-        relativeChangeText.text = !upgrade.MaxLevelReached()
-            ? ((change > 0 ? "+" + change.ToString() : change.ToString()) + "%")
-            : "";
+        currentLevelText.text = itemUpgrade.level.ToString();
+        maximumLevelText.text = itemUpgrade.getMaxLevel().ToString();
 
         // costs
-        costs.text = upgrade.GetUpgradeCosts().ToString() + " $";
+        costs.text = itemUpgrade.GetUpgradeCosts().ToString() + " $";
 
         // current value
-        valueText.text = (Mathf.Round(upgrade.GetValue() * 10) / 10).ToString();
+        valueText.text = (Mathf.Round(itemUpgrade.GetValue() * 100) / 100).ToString();
+        float improvement = itemUpgrade.improvementPerLevel;
+        improvementText.text = improvement >= 0 ? "+" + improvement.ToString() : improvement.ToString();
         valueSuffixText.text = valueSuffix;
     }
 

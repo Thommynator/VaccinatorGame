@@ -16,7 +16,7 @@ public class Score : MonoBehaviour
         GameEvents.current.onUpdateMoneyScore += UpdateMoneyScoreVisuals;
         GameEvents.current.onUpdateSurviveTimeScore += UpdateSurviveTimeVisuals;
 
-        UpdateMoneyScoreVisuals(0);
+        UpdateMoneyScoreVisuals(GameManager.current.GetMoney());
     }
 
     private void UpdateMoneyScoreVisuals(int money)

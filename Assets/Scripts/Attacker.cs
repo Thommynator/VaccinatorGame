@@ -6,6 +6,7 @@ public class Attacker : MonoBehaviour
     public float attackCooldown;
     public GameObject explosionEffectPrefab;
     private float lastAttackTime;
+    private bool isAttacking;
 
 
     // Start is called before the first frame update
@@ -16,6 +17,8 @@ public class Attacker : MonoBehaviour
 
         GetComponent<Hp>().dyingMethod = Die;
         lastAttackTime = Time.timeSinceLevelLoad;
+        isAttacking = false;
+
     }
 
 
@@ -31,10 +34,18 @@ public class Attacker : MonoBehaviour
 
     public void Die()
     {
-        GameEvents.current.IncreaseVisibleArea(1.0f);
+        GameEvents.current.IncreaseVisibleArea(ShopItems.current.GetValueOf(ItemName.VISIBLE_AREA_GAIN));
         GameEvents.current.ShakeCamera(0.25f, 5);
         GameObject explosionFx = GameObject.Instantiate<GameObject>(explosionEffectPrefab, transform.position, Quaternion.identity);
         Destroy(explosionFx, 3);
+
+        // reward bonus when attacker is attacking
+        if (isAttacking)
+        {
+            float bonusFactor = ShopItems.current.GetValueOf(ItemName.REWARD_BONUS);
+            GetComponent<Reward>().rewardAmount *= ((int)Mathf.Round(bonusFactor));
+        }
+
         Destroy(this.gameObject);
     }
 
@@ -42,6 +53,7 @@ public class Attacker : MonoBehaviour
     {
         if (attacker == this.gameObject)
         {
+            isAttacking = true;
             GetComponent<RandomWalker>().enabled = false;
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             LookAt(cell);
@@ -52,6 +64,7 @@ public class Attacker : MonoBehaviour
     {
         if (attacker == this.gameObject)
         {
+            isAttacking = false;
             GetComponent<RandomWalker>().enabled = true;
         }
     }

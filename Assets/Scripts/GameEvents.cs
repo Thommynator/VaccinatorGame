@@ -97,6 +97,13 @@ public class GameEvents : MonoBehaviour
         onPauseGame?.Invoke();
     }
 
+    public event Action onShowPauseScreen;
+    public void ShowPauseScreen()
+    {
+        PauseGame();
+        onShowPauseScreen?.Invoke();
+    }
+
     public event Action onResumeGame;
     public void ResumeGame()
     {
