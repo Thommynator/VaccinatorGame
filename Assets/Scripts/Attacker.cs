@@ -54,7 +54,7 @@ public class Attacker : MonoBehaviour
         if (attacker == this.gameObject)
         {
             isAttacking = true;
-            GetComponent<RandomWalker>().enabled = false;
+            GetComponent<MovementBehavior>().enabled = false;
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             LookAt(cell);
         }
@@ -65,7 +65,7 @@ public class Attacker : MonoBehaviour
         if (attacker == this.gameObject)
         {
             isAttacking = false;
-            GetComponent<RandomWalker>().enabled = true;
+            GetComponent<MovementBehavior>().enabled = true;
         }
     }
 

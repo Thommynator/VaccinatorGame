@@ -224,8 +224,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.38099083"
-     inkscape:cx="-843.43038"
-     inkscape:cy="-313.68699"
+     inkscape:cx="-602.10944"
+     inkscape:cy="581.55284"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -1482,5 +1482,15 @@
          x="-118.83594"
          y="69.079667"><tspan
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.3803px;font-family:'Hobo Std';-inkscape-font-specification:'Hobo Std';fill:#35ff69;fill-opacity:1;stroke:#1b2021;stroke-width:0.414441;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">PAUSE</tspan></tspan></text>
+    <rect
+       style="fill:#ffc600;fill-opacity:1;stroke:#fffdfd;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers;stop-color:#000000"
+       id="rect990"
+       width="83.335335"
+       height="29.86183"
+       x="-538.02917"
+       y="361.21976"
+       ry="7.6390729"
+       inkscape:export-xdpi="202"
+       inkscape:export-ydpi="202" />
   </g>
 </svg>
