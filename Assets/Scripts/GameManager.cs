@@ -86,7 +86,6 @@ public class GameManager : MonoBehaviour
 
     private void ResumeGame()
     {
-        GetComponent<AudioSource>().Play();
         Time.timeScale = 1.0f;
         isPaused = false;
         pauseScreen.SetActive(false);
@@ -181,13 +180,11 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        GetComponent<AudioSource>().Play();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
     }
 
     public void ExitGame()
     {
-        GetComponent<AudioSource>().Play();
         Application.Quit();
     }
 
