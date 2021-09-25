@@ -5,6 +5,7 @@ public class Attacker : MonoBehaviour
     public float damage;
     public float attackCooldown;
     public GameObject explosionEffectPrefab;
+    public GameObject bonusRewardPrefab;
     private float lastAttackTime;
     private bool isAttacking;
 
@@ -42,6 +43,7 @@ public class Attacker : MonoBehaviour
         // reward bonus when attacker is attacking
         if (isAttacking)
         {
+            GameObject.Instantiate(bonusRewardPrefab, this.transform.position, Quaternion.identity);
             float bonusFactor = ShopItems.current.GetValueOf(ItemName.REWARD_BONUS);
             GetComponent<Reward>().rewardAmount *= ((int)Mathf.Round(bonusFactor));
         }

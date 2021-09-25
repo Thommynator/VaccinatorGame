@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +6,7 @@ public class ShopItems : MonoBehaviour
     public static ShopItems current;
     private Dictionary<ItemName, ItemUpgrade> dictionary = new Dictionary<ItemName, ItemUpgrade>();
 
-    void Start()
+    void Awake()
     {
         current = this;
         dictionary.Add(ItemName.PROJECTILE_STRENGTH, GameObject.Find("Projectile Strength").GetComponent<ItemUpgrade>());

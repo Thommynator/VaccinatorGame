@@ -186,6 +186,8 @@ MonoBehaviour:
   attackCooldown: 1
   explosionEffectPrefab: {fileID: 569126039031927083, guid: 59bfb16f9b7c26841af59d1c929ce24a,
     type: 3}
+  bonusRewardPrefab: {fileID: 5630501897455905729, guid: c41c80794783abd458b3c19ffc196de8,
+    type: 3}
 --- !u!114 &7223297694552387442
 MonoBehaviour:
   m_ObjectHideFlags: 0
