@@ -140,6 +140,11 @@ PrefabInstance:
       propertyPath: spawnRatePerSecond
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 4933537914245252158, guid: b1c97cba04f217941996d87af17a6d38,
+        type: 3}
+      propertyPath: hasRandomStartOffset
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4933537914245252159, guid: b1c97cba04f217941996d87af17a6d38,
         type: 3}
       propertyPath: m_RootOrder
@@ -8981,6 +8986,11 @@ PrefabInstance:
       propertyPath: spawnRatePerSecond
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 4933537914245252158, guid: b1c97cba04f217941996d87af17a6d38,
+        type: 3}
+      propertyPath: hasRandomStartOffset
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4933537914245252159, guid: b1c97cba04f217941996d87af17a6d38,
         type: 3}
       propertyPath: m_RootOrder
@@ -9350,6 +9360,11 @@ PrefabInstance:
         type: 3}
       propertyPath: spawnRatePerSecond
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4933537914245252158, guid: b1c97cba04f217941996d87af17a6d38,
+        type: 3}
+      propertyPath: hasRandomStartOffset
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4933537914245252159, guid: b1c97cba04f217941996d87af17a6d38,
         type: 3}

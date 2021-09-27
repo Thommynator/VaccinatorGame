@@ -23,6 +23,6 @@ public class StartMenu : MonoBehaviour
 
     public void StartTutorial()
     {
-        // TODO
+        SceneManager.LoadScene("TutorialScene");
     }
 }
