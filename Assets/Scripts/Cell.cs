@@ -23,7 +23,6 @@ public class Cell : MonoBehaviour
     {
         GameEvents.current.onAttackerAttachsToCell += AddAttacker;
         GameEvents.current.onAttackerDetachesFromCell += RemoveAttacker;
-        GameEvents.current.onAttackerDies += RemoveAttacker;
         numberOfAttackers = 0;
         attackedBy = new HashSet<GameObject>();
         cellStatus = CellStatus.HEALTHY;
@@ -122,15 +121,6 @@ public class Cell : MonoBehaviour
 
     }
 
-    private void RemoveAttacker(GameObject attacker)
-    {
-        if (this != null)
-        {
-            RemoveAttacker(attacker, this.gameObject);
-        }
-    }
-
-
     private void RemoveAttacker(GameObject attacker, GameObject cell)
     {
         if (cell != this.gameObject)
@@ -162,7 +152,6 @@ public class Cell : MonoBehaviour
     {
         GameEvents.current.onAttackerAttachsToCell -= AddAttacker;
         GameEvents.current.onAttackerDetachesFromCell -= RemoveAttacker;
-        GameEvents.current.onAttackerDies -= RemoveAttacker;
     }
 
     public enum CellStatus

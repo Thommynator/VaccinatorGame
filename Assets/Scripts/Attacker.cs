@@ -10,7 +10,6 @@ public class Attacker : MonoBehaviour
     private bool isAttacking;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         GameEvents.current.onAttackerAttachsToCell += StopMoving;
@@ -21,7 +20,6 @@ public class Attacker : MonoBehaviour
         isAttacking = false;
 
     }
-
 
     public void AttackCell(GameObject cell)
     {
@@ -78,6 +76,15 @@ public class Attacker : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (this.gameObject.TryGetComponent<FixedJoint2D>(out FixedJoint2D joint))
+        {
+            // detach from cell if it's attached to it
+            GameObject linkedCell = joint?.connectedBody?.gameObject;
+            if (linkedCell != null)
+            {
+                GameEvents.current.AttackerDetachesFromCell(this.gameObject, joint.connectedBody?.gameObject);
+            }
+        }
         GameEvents.current.AttackerDies(this.gameObject);
         GameEvents.current.onAttackerAttachsToCell -= StopMoving;
         GameEvents.current.onAttackerDetachesFromCell -= StartMoving;
