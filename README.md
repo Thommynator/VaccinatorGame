@@ -32,8 +32,7 @@ Keyboard & Mouse
 |Right Mouse Button|Burst Attack (with cooldown)|
 
 ## Preview Shots
-![](https://user-images.githubusercontent.com/16207145/125165461-4e9aa100-e197-11eb-8728-e527ecf20818.png)
+![](https://github.com/Thommynator/VaccinatorGame/blob/develop/doc/demo1.png)
 
 ## Next Steps & Contribution
-Take a look  at the [project](https://github.com/Thommynator/VaccinatorGame/projects/1) of this repo.
 Feel free to contribute new ideas as an [issue](https://github.com/Thommynator/VaccinatorGame/issues).
