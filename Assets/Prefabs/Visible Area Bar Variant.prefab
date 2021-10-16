@@ -135,7 +135,7 @@ PrefabInstance:
     - target: {fileID: 2744593976188869638, guid: 5fc35e8488d147f4bb41d458339d000f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1016
+      value: -1028.96
       objectReference: {fileID: 0}
     - target: {fileID: 3104301355477218589, guid: 5fc35e8488d147f4bb41d458339d000f,
         type: 3}
@@ -165,7 +165,7 @@ PrefabInstance:
     - target: {fileID: 8001311466571504107, guid: 5fc35e8488d147f4bb41d458339d000f,
         type: 3}
       propertyPath: m_Name
-      value: Visible Area Bar
+      value: Visible Area Bar Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8228082834505884728, guid: 5fc35e8488d147f4bb41d458339d000f,
         type: 3}

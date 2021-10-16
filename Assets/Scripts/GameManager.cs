@@ -183,6 +183,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
     }
 
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene("StartMenuScene");
+    }
+
     public void ExitGame()
     {
         Application.Quit();

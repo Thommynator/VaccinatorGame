@@ -1252,7 +1252,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Exit Game
+  m_text: Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 04a806b8d307dd94e93b8852b18fb878, type: 2}
   m_sharedMaterial: {fileID: -6754208466701277270, guid: 04a806b8d307dd94e93b8852b18fb878,
@@ -1889,7 +1889,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Exit Game
+  m_text: Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 04a806b8d307dd94e93b8852b18fb878, type: 2}
   m_sharedMaterial: {fileID: -6754208466701277270, guid: 04a806b8d307dd94e93b8852b18fb878,
@@ -4552,7 +4552,7 @@ GameObject:
   - component: {fileID: 805385396}
   - component: {fileID: 805385395}
   m_Layer: 5
-  m_Name: Exit Button
+  m_Name: Menu Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4624,7 +4624,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 765069971}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ExitGame
+        m_MethodName: LoadMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6824,7 +6824,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &1095617136
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7584,7 +7584,7 @@ GameObject:
   - component: {fileID: 1242182958}
   - component: {fileID: 1242182957}
   m_Layer: 5
-  m_Name: Exit
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7656,7 +7656,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 765069971}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ExitGame
+        m_MethodName: LoadMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
