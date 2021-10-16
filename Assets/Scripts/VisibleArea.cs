@@ -5,11 +5,11 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class VisibleArea : MonoBehaviour
 {
     public float distance;
-
     public float minDistance;
     private float maxDistance;
     public float decreaseIntervalInSeconds;
     public AnimationCurve decreaseAmount;
+    public GameObject progressBar;
 
     private GameObject spriteMaskObject;
     private Light2D light2D;
@@ -31,12 +31,14 @@ public class VisibleArea : MonoBehaviour
     {
         distance += increase;
         distance = Mathf.Clamp(distance, minDistance, maxDistance);
+        progressBar.GetComponentInChildren<ProgressBar>().SetValue(distance, minDistance, maxDistance);
     }
 
     private void DecreaseVisableDistance(float decrease)
     {
         distance -= decrease;
         distance = Mathf.Clamp(distance, minDistance, maxDistance);
+        progressBar.GetComponentInChildren<ProgressBar>().SetValue(distance, minDistance, maxDistance);
     }
 
     void Update()

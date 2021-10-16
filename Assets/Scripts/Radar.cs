@@ -17,12 +17,6 @@ public class Radar : MonoBehaviour
         GameEvents.current.onAttackerDetachesFromCell += RemoveCellAttacker;
     }
 
-    void Update()
-    {
-        // ignore parent (=player) rotation, i.e. make sure that north is always up
-        this.transform.rotation = Quaternion.identity;
-    }
-
     private void AddCellAttacker(GameObject attacker, GameObject cell)
     {
         attackedCells.TryGetValue(cell, out int numberOfAttackers);
