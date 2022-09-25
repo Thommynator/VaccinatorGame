@@ -4,45 +4,48 @@ public class Attacker : MonoBehaviour
 {
     public float damage;
     public float attackCooldown;
-    public AudioClip explosionSound;
     public GameObject explosionEffectPrefab;
+    public GameObject bonusRewardPrefab;
     private float lastAttackTime;
+    private bool isAttacking;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         GameEvents.current.onAttackerAttachsToCell += StopMoving;
         GameEvents.current.onAttackerDetachesFromCell += StartMoving;
 
         GetComponent<Hp>().dyingMethod = Die;
-    }
+        lastAttackTime = Time.timeSinceLevelLoad;
+        isAttacking = false;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            GameEvents.current.AttackerDetachesFromCell(this.gameObject, GameObject.Find("Cell"));
-        }
     }
 
     public void AttackCell(GameObject cell)
     {
         LookAt(cell);
-        if (Time.realtimeSinceStartup - lastAttackTime > attackCooldown)
+        if (Time.timeSinceLevelLoad - lastAttackTime > attackCooldown)
         {
             cell.GetComponent<Hp>().TakeDamage(damage);
-            lastAttackTime = Time.realtimeSinceStartup;
+            lastAttackTime = Time.timeSinceLevelLoad;
         }
     }
 
     public void Die()
     {
-        GameEvents.current.IncreaseVisibleArea(1.0f);
+        GameEvents.current.IncreaseVisibleArea(ShopItems.current.GetValueOf(ItemName.VISIBLE_AREA_GAIN));
+        GameEvents.current.ShakeCamera(0.25f, 5);
         GameObject explosionFx = GameObject.Instantiate<GameObject>(explosionEffectPrefab, transform.position, Quaternion.identity);
         Destroy(explosionFx, 3);
-        AudioSource.PlayClipAtPoint(explosionSound, transform.position);
+
+        // reward bonus when attacker is attacking
+        if (isAttacking)
+        {
+            GameObject.Instantiate(bonusRewardPrefab, this.transform.position, Quaternion.identity);
+            float bonusFactor = ShopItems.current.GetValueOf(ItemName.REWARD_BONUS);
+            GetComponent<Reward>().rewardAmount *= ((int)Mathf.Round(bonusFactor));
+        }
+
         Destroy(this.gameObject);
     }
 
@@ -50,7 +53,8 @@ public class Attacker : MonoBehaviour
     {
         if (attacker == this.gameObject)
         {
-            GetComponent<RandomWalker>().enabled = false;
+            isAttacking = true;
+            GetComponent<MovementBehavior>().enabled = false;
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             LookAt(cell);
         }
@@ -60,7 +64,8 @@ public class Attacker : MonoBehaviour
     {
         if (attacker == this.gameObject)
         {
-            GetComponent<RandomWalker>().enabled = true;
+            isAttacking = false;
+            GetComponent<MovementBehavior>().enabled = true;
         }
     }
 
@@ -71,6 +76,15 @@ public class Attacker : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (this.gameObject.TryGetComponent<FixedJoint2D>(out FixedJoint2D joint))
+        {
+            // detach from cell if it's attached to it
+            GameObject linkedCell = joint?.connectedBody?.gameObject;
+            if (linkedCell != null)
+            {
+                GameEvents.current.AttackerDetachesFromCell(this.gameObject, joint.connectedBody?.gameObject);
+            }
+        }
         GameEvents.current.AttackerDies(this.gameObject);
         GameEvents.current.onAttackerAttachsToCell -= StopMoving;
         GameEvents.current.onAttackerDetachesFromCell -= StartMoving;

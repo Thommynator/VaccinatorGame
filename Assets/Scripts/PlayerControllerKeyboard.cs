@@ -6,32 +6,47 @@ public class PlayerControllerKeyboard : MonoBehaviour
     public float maxSpeed;
     public float maxRotation;
     private Rigidbody2D body;
+    private bool canDoAction;
 
     void Start()
     {
+        GameEvents.current.onResumeGame += SetCanDoAction;
+        GameEvents.current.onPauseGame += SetCanNotDoAction;
+
+        canDoAction = true;
         body = GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
     {
+        if (!canDoAction)
+        {
+            return;
+        }
         Move();
         Rotate();
     }
 
     void Update()
     {
+        if (!canDoAction)
+        {
+            return;
+        }
+
         // single precise shot
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
-            GetComponent<ProjectileSpawner>().Fire(transform.position, transform.position + transform.up, body.velocity);
+            GetComponent<ProjectileSpawner>().Fire(transform.position, transform.position + transform.up, Vector3.zero);
         }
 
-        // burst shot
+        // burst attack
         else if (Input.GetMouseButton(1))
         {
-            GetComponent<BurstShot>().Fire(body.velocity);
+            GetComponent<BurstAttack>().Fire(body.velocity);
         }
 
+        // dash attack
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             GetComponent<DashAttack>().Dash(1);
@@ -50,7 +65,20 @@ public class PlayerControllerKeyboard : MonoBehaviour
         // body.AddTorque(Mathf.Clamp(-Input.GetAxis("Horizontal") * maxRotation, -maxRotation, maxRotation));
     }
 
+    private void SetCanDoAction()
+    {
+        canDoAction = true;
+    }
 
+    private void SetCanNotDoAction()
+    {
+        canDoAction = false;
+    }
 
+    void OnDestroy()
+    {
+        GameEvents.current.onResumeGame -= SetCanDoAction;
+        GameEvents.current.onPauseGame -= SetCanNotDoAction;
+    }
 
 }

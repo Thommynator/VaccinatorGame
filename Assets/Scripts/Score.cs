@@ -1,79 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
 
 public class Score : MonoBehaviour
 {
-
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI attackerCountText;
-
-    private float money;
-    private float timeInSeconds;
-    private int attackerCount;
+    public TextMeshProUGUI waveCountText;
 
     void Start()
     {
-        GameEvents.current.onIncreaseMoney += IncreaseMoney;
-        GameEvents.current.onIncreaseAttackerCount += IncreaseAttackerCount;
-        GameEvents.current.onDecreaseAttackerCount += DecreaseAttackerCount;
+        GameEvents.current.onIncreaseWave += UpdateWaveCountVisuals;
+        GameEvents.current.onUpdateAttackerScore += UpdateAttackerCountVisuals;
+        GameEvents.current.onUpdateMoneyScore += UpdateMoneyScoreVisuals;
+        GameEvents.current.onUpdateSurviveTimeScore += UpdateSurviveTimeVisuals;
 
-        money = 0;
-        UpdateMoneyScoreVisuals();
-
-        timeInSeconds = Time.realtimeSinceStartup;
-        StartCoroutine(IncreaseTimer());
-
-        attackerCount = 0;
+        UpdateMoneyScoreVisuals(GameManager.current.GetMoney());
     }
 
-    private void IncreaseMoney(float increase)
-    {
-        money += increase;
-        UpdateMoneyScoreVisuals();
-    }
-
-    private void UpdateMoneyScoreVisuals()
+    private void UpdateMoneyScoreVisuals(int money)
     {
         moneyText.text = money.ToString() + " $";
     }
 
-    private IEnumerator IncreaseTimer()
-    {
-        while (true)
-        {
-            timeInSeconds = Time.realtimeSinceStartup;
-
-            TimeSpan timeSpan = TimeSpan.FromSeconds(timeInSeconds);
-            // 0:00 --> first number = index, second number = formatting (https://tinyurl.com/3fd6w7ey)
-            timeText.text = string.Format("{0:00}:{1:00}:{2:0}", timeSpan.TotalMinutes, timeSpan.Seconds, timeSpan.Milliseconds / 100);
-            yield return new WaitForSeconds(0.1f);
-        }
-    }
-
-    private void IncreaseAttackerCount()
-    {
-        attackerCount += 1;
-        UpdateAttackerCountVisuals();
-    }
-
-    private void DecreaseAttackerCount()
-    {
-        attackerCount -= 1;
-        Mathf.Max(attackerCount, 0);
-        UpdateAttackerCountVisuals();
-    }
-
-    private void UpdateAttackerCountVisuals()
+    private void UpdateAttackerCountVisuals(int attackerCount)
     {
         attackerCountText.text = attackerCount.ToString();
     }
 
+    private void UpdateWaveCountVisuals(int newWave)
+    {
+        waveCountText.text = "Wave: " + newWave;
+    }
+
+    private void UpdateSurviveTimeVisuals(float timeInSeconds)
+    {
+        timeText.text = GameManager.current.GetFormattedSurviveTime();
+    }
+
     private void OnDestroy()
     {
-        GameEvents.current.onIncreaseMoney -= IncreaseMoney;
+        GameEvents.current.onIncreaseWave -= UpdateWaveCountVisuals;
+        GameEvents.current.onIncreaseWave -= UpdateWaveCountVisuals;
+        GameEvents.current.onUpdateAttackerScore -= UpdateAttackerCountVisuals;
+        GameEvents.current.onUpdateMoneyScore -= UpdateMoneyScoreVisuals;
+        GameEvents.current.onUpdateSurviveTimeScore -= UpdateSurviveTimeVisuals;
     }
 }

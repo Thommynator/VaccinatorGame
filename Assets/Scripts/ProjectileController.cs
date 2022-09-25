@@ -1,13 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
 
     public float maxSpeed;
-    public float damage;
-
     private Rigidbody2D body;
 
     void Start()
@@ -25,11 +22,9 @@ public class ProjectileController : MonoBehaviour
         if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Attacker")))
         {
             Destroy(this.gameObject);
+            float damage = ShopItems.current.GetValueOf(ItemName.PROJECTILE_STRENGTH);
             collision.gameObject.GetComponent<Hp>().TakeDamage(damage);
         }
-        if (!collision.gameObject.layer.Equals(LayerMask.NameToLayer("NonInteractable")))
-        {
-            Destroy(this.gameObject);
-        }
+        Destroy(this.gameObject);
     }
 }
